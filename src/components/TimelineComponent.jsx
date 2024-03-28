@@ -3,15 +3,15 @@ import '../styles/TimelineComponent.css'; // Não esqueça de criar este arquivo
 
 function TimelineComponent({ repos, hasSearched }) {
 
-    // Ordena os repositórios por data de última atualização em ordem descendente
-    const sortedRepos = [...repos].sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+    // // Ordena os repositórios por data de última atualização em ordem descendente
+    // const sortedRepos = [...repos].sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
 
     // Só exibirá a mensagem se a busca foi realizada e nenhum repositório foi encontrado
-    if (hasSearched && !sortedRepos.length) return <p>No repositories found.</p>;
+    if (hasSearched && !repos.length) return <p>No repositories found.</p>;
 
     return (
       <div className="timeline-container">
-        {sortedRepos.map((repo, index) => (
+        {repos.map((repo, index) => (
           <div key={index} className="timeline-item">
             <div className="timeline-dot"></div>
             <div className="timeline-date">{new Date(repo.created_at).getFullYear()}</div>
