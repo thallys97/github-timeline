@@ -1,0 +1,36 @@
+.timeline-container {
+    position: relative;
+    padding-left: 20px;
+    margin-left: 20px;
+    border-left: 2px solid #333; /* Linha da timeline */
+  }
+  
+  .timeline-item {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .timeline-dot {
+    position: absolute;
+    left: -6px;
+    background-color: #333;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    top: 5px;
+  }
+  
+  .timeline-date {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .timeline-content h2 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .timeline-content p {
+    margin: 0;
+    font-size: 1em;
+  }
