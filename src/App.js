@@ -9,6 +9,7 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false); // Novo estado para rastrear se a busca foi realizada
 
   const handleUsernameSubmit = async (submittedUsername) => {
     try {
@@ -16,10 +17,12 @@ function App() {
       setError('');
       const userRepos = await fetchUserRepos(submittedUsername);
       setRepos(userRepos);
+      setHasSearched(true); // Seta como verdadeiro apenas após obter os repositórios com sucesso
       setIsLoading(false);
-      // Aqui você irá processar e passar os dados para o componente de timeline
     } catch (error) {
       setError(error.message);
+      setRepos([]); // Limpe os repositórios em caso de erro para garantir que a mensagem correta seja exibida
+      setHasSearched(false); // Reset hasSearched se houver um erro
       setIsLoading(false);
     }
   };
@@ -30,7 +33,7 @@ function App() {
       <UserInputComponent onUsernameSubmit={handleUsernameSubmit} />
       {isLoading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      <TimelineComponent repos={repos} /> {/* Inclua o componente Timeline aqui */}
+      <TimelineComponent repos={repos} hasSearched={hasSearched} /> {/* Passe o novo prop 'hasSearched' */}
     </div>
   );
 }
