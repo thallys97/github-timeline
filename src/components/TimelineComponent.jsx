@@ -1,8 +1,9 @@
 import React from 'react';
 import '../styles/TimelineComponent.css'; // Não esqueça de criar este arquivo CSS para estilizar a linha do tempo
 
-function TimelineComponent({ repos }) {
-  if (!repos.length) return <p>No repositories found.</p>;
+function TimelineComponent({ repos, hasSearched }) {
+    // Só exibirá a mensagem se a busca foi realizada e nenhum repositório foi encontrado
+    if (hasSearched && !repos.length) return <p>No repositories found.</p>;
 
   return (
     <div className="timeline-container">
