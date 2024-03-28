@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function UserInputComponent({ onUsernameSubmit }) {
+function UserInputComponent({ onUsernameSubmit, hasSearched, onClearSearch }) {
   const [username, setUsername] = useState('');
 
   const handleSubmit = (e) => {
@@ -23,6 +23,9 @@ function UserInputComponent({ onUsernameSubmit }) {
           required
         />
         <button type="submit">Generate Timeline</button>
+        {hasSearched && (
+          <button type="button" onClick={onClearSearch}>Limpar busca</button>
+        )}
       </form>
     </div>
   );
