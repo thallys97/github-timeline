@@ -27,13 +27,23 @@ function App() {
     }
   };
 
+  const handleClearSearch = () => {
+    setRepos([]);
+    setError('');
+    setHasSearched(false);
+  };
+
   return (
     <div className="App">
       <h1>GitHub Timeline</h1>
-      <UserInputComponent onUsernameSubmit={handleUsernameSubmit} />
+      <UserInputComponent 
+        onUsernameSubmit={handleUsernameSubmit} 
+        hasSearched={hasSearched}
+        onClearSearch={handleClearSearch}
+      />
       {isLoading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      <TimelineComponent repos={repos} hasSearched={hasSearched} /> {/* Passe o novo prop 'hasSearched' */}
+      <TimelineComponent repos={repos} hasSearched={hasSearched} />
     </div>
   );
 }
