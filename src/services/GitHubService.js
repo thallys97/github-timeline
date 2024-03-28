@@ -1,5 +1,5 @@
-export const fetchUserRepos = async (username) => {
-  const endpoint = `https://api.github.com/users/${username}/repos?type=public&sort=pushed`;
+export const fetchUserRepos = async (username, page = 1) => {
+  const endpoint = `https://api.github.com/users/${username}/repos?type=public&sort=pushed&per_page=30&page=${page}`;
   try {
     const response = await fetch(endpoint);
     if (!response.ok) {
