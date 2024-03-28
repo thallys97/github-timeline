@@ -10,28 +10,50 @@ function App() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false); // Novo estado para rastrear se a busca foi realizada
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleUsernameSubmit = async (submittedUsername) => {
+    setPage(1);
+    setHasMore(true);
+    fetchRepos(submittedUsername, 1);
+  };
+
+  const fetchRepos = async (username, page) => {
     try {
       setIsLoading(true);
       setError('');
-      const userRepos = await fetchUserRepos(submittedUsername);
-      setRepos(userRepos);
-      setHasSearched(true); // Seta como verdadeiro apenas após obter os repositórios com sucesso
+      const userRepos = await fetchUserRepos(username, page);
+      if (page === 1) {
+        setRepos(userRepos);
+      } else {
+        setRepos(prevRepos => [...prevRepos, ...userRepos]);
+      }
+      setHasSearched(true);
       setIsLoading(false);
+      setHasMore(userRepos.length === 30);
     } catch (error) {
       setError(error.message);
-      setRepos([]); // Limpe os repositórios em caso de erro para garantir que a mensagem correta seja exibida
-      setHasSearched(false); // Reset hasSearched se houver um erro
+      setRepos([]);
       setIsLoading(false);
+      setHasSearched(false);
+      setHasMore(false);
     }
+  };
+
+  const handleLoadMore = () => {
+    fetchRepos(repos[0].owner.login, page + 1);
+    setPage(prevPage => prevPage + 1);
   };
 
   const handleClearSearch = () => {
     setRepos([]);
     setError('');
     setHasSearched(false);
+    setPage(1);
+    setHasMore(true);
   };
+
 
   return (
     <div className="App">
@@ -44,6 +66,9 @@ function App() {
       {isLoading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
       <TimelineComponent repos={repos} hasSearched={hasSearched} />
+      {hasSearched && hasMore && !isLoading && (
+        <button onClick={handleLoadMore}>Load more</button>
+      )}
     </div>
   );
 }
