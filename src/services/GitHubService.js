@@ -2,7 +2,10 @@ export const fetchUserRepos = async (username, page = 1) => {
   const endpoint = `https://api.github.com/users/${username}/repos?type=public&sort=created&per_page=30&page=${page}`;
   try {
     const response = await fetch(endpoint);
-    if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error('Too many requisitions. Try again later.');
+    }
+    else if (!response.ok) {
       throw new Error('GitHub user not found.');
     }
     const repos = await response.json();
@@ -21,7 +24,10 @@ export const fetchAllUserRepos = async (username) => {
   while (hasMore) {
     const endpoint = `https://api.github.com/users/${username}/repos?type=public&sort=created&per_page=100&page=${page}`;
     const response = await fetch(endpoint);
-    if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error('Too many requisitions. Try again later.');
+    }
+    else if (!response.ok) {
       throw new Error('GitHub user not found.');
     }
     const repos = await response.json();
