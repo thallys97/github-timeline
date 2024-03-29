@@ -1,36 +1,109 @@
+:root {
+  --color-timeline: #D1D5DB;
+  --color-dot: #3B82F6;
+  --color-title: #1F2937;
+  --color-detail: #6B7280;
+  --color-card-bg: #F3F4F6;
+  --color-action: #10B981;
+  --font-main: 'Roboto', sans-serif;
+}
+
+body, button {
+  font-family: var(--font-main);
+}
+
 .timeline-container {
-    position: relative;
-    padding-left: 20px;
-    margin-left: 20px;
-    border-left: 2px solid #333; /* Linha da timeline */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  grid-column: 1;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  grid-column: 3;
+  text-align: left;
+}
+
+.timeline-dot {
+  grid-column: 2;
+  justify-self: center;
+  background-color: var(--color-dot);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+}
+
+.timeline-date {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--color-detail);
+  white-space: nowrap;
+}
+
+.timeline-content {
+  padding: 20px;
+  background-color: var(--color-card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-content h2 {
+  color: var(--color-title);
+  font-size: 18px;
+}
+
+.timeline-content p {
+  color: var(--color-detail);
+  font-size: 16px;
+}
+
+.error, .loading {
+  color: var(--color-action);
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
   .timeline-item {
-    margin-bottom: 20px;
-    position: relative;
+    grid-template-columns: 1fr 2px;
   }
-  
-  .timeline-dot {
-    position: absolute;
-    left: -6px;
-    background-color: #333;
-    border-radius: 50%;
-    width: 12px;
-    height: 12px;
-    top: 5px;
+
+  .timeline-item .timeline-content {
+    grid-column: 1;
   }
-  
-  .timeline-date {
-    margin-bottom: 5px;
-    font-weight: bold;
+
+  .timeline-date, .timeline-dot {
+    display: none;
   }
-  
-  .timeline-content h2 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-  
-  .timeline-content p {
-    margin: 0;
-    font-size: 1em;
-  }
+}
+
+button {
+  background-color: var(--color-action);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: darken(var(--color-action), 10%);
+}
