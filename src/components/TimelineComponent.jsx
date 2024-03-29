@@ -14,9 +14,10 @@ function TimelineComponent({ repos, hasSearched }) {
         {repos.map((repo, index) => (
           <div key={index} className="timeline-item">
             <div className="timeline-dot"></div>
-            <div className="timeline-date">{new Date(repo.created_at).getFullYear()}</div>
+            {/* <div className="timeline-date">{new Date(repo.created_at).getFullYear()}</div> */}
             <div className="timeline-content">
               <h2>{repo.name}</h2>
+              <p>created at: {new Date(repo.created_at).toLocaleDateString()}</p>
               {repo.fork && <p className="forked-info">Forked from another repository</p>}
               <p>{repo.description}</p>
               <p>Last updated: {new Date(repo.pushed_at).toLocaleDateString()}</p>
