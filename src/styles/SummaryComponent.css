@@ -1,0 +1,22 @@
+.summary-container {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .summary-item {
+    background-color: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 10px; /* Espaçamento entre os itens do sumário */
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-year {
+    font-weight: bold;
+  }
+  
+  .summary-count {
+    font-style: italic;
+  }
