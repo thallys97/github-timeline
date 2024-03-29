@@ -5,6 +5,7 @@ import UserInputComponent from './components/UserInputComponent';
 import TimelineComponent from './components/TimelineComponent';
 import SummaryComponent from './components/SummaryComponent';
 import { fetchUserRepos } from './services/GitHubService';
+import { fetchAllUserRepos } from './services/GitHubService';
 
 function App() {
   const [repos, setRepos] = useState([]);
@@ -31,11 +32,12 @@ function App() {
       } else {
         setRepos(prevRepos => [...prevRepos, ...userRepos]);
       }
+      const allUserRepos = await fetchAllUserRepos(username);
       setHasSearched(true);
       setIsLoading(false);
       setHasMore(userRepos.length === 30);
       // Adiciona a chamada para criar o sumário
-      const summary = createRepoSummary(userRepos);
+      const summary = createRepoSummary(allUserRepos);
       setRepoSummary(summary);
     } catch (error) {
       setError(error.message);
@@ -61,14 +63,24 @@ function App() {
     setRepoSummary(null);
   };
 
-  // Função para criar o sumário de repositórios
-  const createRepoSummary = (repos) => {
-    return repos.reduce((acc, repo) => {
-      const year = new Date(repo.created_at).getFullYear();
-      acc[year] = (acc[year] || 0) + 1;
-      return acc;
-    }, {});
-  };
+  // Função para criar o sumário de repositórios e ordená-lo
+const createRepoSummary = (repos) => {
+  const summary = repos.reduce((acc, repo) => {
+    const year = new Date(repo.created_at).getFullYear();
+    acc[year] = (acc[year] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Convertendo o objeto em array e ordenando por ano decrescente
+  const sortedSummary = Object.entries(summary).sort((a, b) => b[0] - a[0]);
+
+  // Convertendo de volta para objeto
+  return sortedSummary.reduce((obj, [year, count]) => {
+    obj[year] = count;
+    return obj;
+  }, {});
+};
+
 
 
   return (
