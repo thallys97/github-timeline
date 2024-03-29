@@ -6,6 +6,7 @@
   --color-card-bg: #F3F4F6;
   --color-action: #10B981;
   --font-main: 'Roboto', sans-serif;
+  --color-timeline-line: #000000; /* cor preta para a linha da timeline */
 }
 
 body, button {
@@ -16,8 +17,19 @@ body, button {
   display: flex;
   flex-direction: column;
   align-items: center; /* Alinha ao início para a timeline à esquerda */
+  position: relative;
   width: 650px;
-  margin: 0 auto;
+  margin: 16px auto 16px auto;
+  &:after { /* Isso criará um pseudo-elemento que servirá como a linha da timeline */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 2px);
+    width: 4px; /* Largura da linha da timeline */
+    background: var(--color-timeline-line); /* Cor da linha da timeline */
+    z-index: 1; /* Certifique-se de que está atrás dos pontos azuis */
+  }
 }
 
 .timeline-item {
