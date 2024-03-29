@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import UserInputComponent from './components/UserInputComponent';
 import TimelineComponent from './components/TimelineComponent';
+import SummaryComponent from './components/SummaryComponent';
 import { fetchUserRepos } from './services/GitHubService';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false); // Novo estado para rastrear se a busca foi realizada
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [repoSummary, setRepoSummary] = useState(null);
 
   const handleUsernameSubmit = async (submittedUsername) => {
     setPage(1);
@@ -32,12 +34,16 @@ function App() {
       setHasSearched(true);
       setIsLoading(false);
       setHasMore(userRepos.length === 30);
+      // Adiciona a chamada para criar o sumário
+      const summary = createRepoSummary(userRepos);
+      setRepoSummary(summary);
     } catch (error) {
       setError(error.message);
       setRepos([]);
       setIsLoading(false);
       setHasSearched(false);
       setHasMore(false);
+      setRepoSummary(null);
     }
   };
 
@@ -52,6 +58,16 @@ function App() {
     setHasSearched(false);
     setPage(1);
     setHasMore(true);
+    setRepoSummary(null);
+  };
+
+  // Função para criar o sumário de repositórios
+  const createRepoSummary = (repos) => {
+    return repos.reduce((acc, repo) => {
+      const year = new Date(repo.created_at).getFullYear();
+      acc[year] = (acc[year] || 0) + 1;
+      return acc;
+    }, {});
   };
 
 
@@ -65,6 +81,8 @@ function App() {
       />
       {isLoading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
+      {/* Adicionar o SummaryComponent antes do TimelineComponent */}
+      <SummaryComponent repoSummary={repoSummary} />
       <TimelineComponent repos={repos} hasSearched={hasSearched} />
       {hasSearched && hasMore && !isLoading && (
         <button onClick={handleLoadMore}>Load more</button>
