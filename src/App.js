@@ -97,7 +97,7 @@ const createRepoSummary = (repos) => {
       <SummaryComponent repoSummary={repoSummary} />
       <TimelineComponent repos={repos} hasSearched={hasSearched} />
       {hasSearched && hasMore && !isLoading && (
-        <button onClick={handleLoadMore}>Load more</button>
+        <button className='App_loadMore__button' onClick={handleLoadMore}>Load more</button>
       )}
     </div>
   );
