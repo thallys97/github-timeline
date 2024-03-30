@@ -21,8 +21,8 @@ function TimelineComponent({ repos, hasSearched }) {
               <p>created at: {new Date(repo.created_at).toLocaleDateString()}</p>
               {repo.fork && <p className="forked-info">Forked from another repository</p>}
               <p>Last updated: {new Date(repo.pushed_at).toLocaleDateString()}</p>
-              <p>Stars: {repo.stargazers_count}</p>
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+              <p>⭐: {repo.stargazers_count}</p>
+              <a className='timeline-link' href={repo.html_url} target="_blank" rel="noopener noreferrer">
                 View on GitHub
               </a>
             </div>
