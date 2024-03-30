@@ -18,7 +18,7 @@ body, button {
   flex-direction: column;
   align-items: center; /* Alinha ao início para a timeline à esquerda */
   position: relative;
-  width: 650px;
+  width: 750px;
   margin: 16px auto 16px auto;
   &:after { /* Isso criará um pseudo-elemento que servirá como a linha da timeline */
     content: "";
@@ -91,7 +91,7 @@ body, button {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  width: 300px;
+  width: 350px;
 }
 
 .timeline-content h2 {
@@ -116,7 +116,11 @@ body, button {
 
 @media (max-width: 768px) {
   .timeline-container {
-    align-items: center; /* No desktop, centraliza */
+    width: 600px;
+  }
+
+  .timeline-content {
+    width: 250px;
   }
 
   .timeline-item {
@@ -130,10 +134,65 @@ body, button {
   .timeline-item .timeline-content {
     grid-column: 1;
   }
+  
+}
 
-  .timeline-date, .timeline-dot {
-    display: none;
+@media screen and (max-width: 618px) {
+  .timeline-container {
+    width: 100%;
+    &:after { /* Isso criará um pseudo-elemento que servirá como a linha da timeline */
+      
+      left: calc(20% - 2px);
+      
+    }
+
   }
+
+  .timeline-dot {
+    left: calc(20% - 8px); /* Posiciona à esquerda do conteúdo */
+  }
+
+  .timeline-item:nth-child(odd)  {
+    text-align: left;
+    justify-content: center;
+  }
+   
+  .timeline-item:nth-child(even)  {
+    text-align: left;
+    justify-content: center;
+    
+  }
+  
+}
+
+@media screen and (max-width: 490px) {
+  .timeline-container {
+    &:after { /* Isso criará um pseudo-elemento que servirá como a linha da timeline */
+      
+      left: calc(10% - 2px);
+      
+    }
+  }
+
+  .timeline-dot {
+    left: calc(10% - 8px); /* Posiciona à esquerda do conteúdo */
+  }
+  
+}
+
+@media screen and (max-width: 360px) {
+  .timeline-container {
+    &:after { /* Isso criará um pseudo-elemento que servirá como a linha da timeline */
+      
+      left: calc(4% - 2px);
+      
+    }
+  }
+
+  .timeline-dot {
+    left: calc(4% - 8px); /* Posiciona à esquerda do conteúdo */
+  }
+  
 }
 
 button {
@@ -143,9 +202,9 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  /* transition: background-color 0.3s; */
 }
 
-button:hover {
+/* button:hover {
   background-color: darken(var(--color-action), 10%);
-}
+} */
