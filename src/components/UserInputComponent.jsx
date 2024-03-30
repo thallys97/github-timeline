@@ -24,7 +24,7 @@ function UserInputComponent({ onUsernameSubmit, hasSearched, onClearSearch }) {
         />
         <button type="submit">Generate Timeline</button>
         {hasSearched && (
-          <button type="button" onClick={onClearSearch}>Limpar busca</button>
+          <button type="button" onClick={onClearSearch}>Clear Search</button>
         )}
       </form>
     </div>
