@@ -1,8 +1,8 @@
 :root {
   --color-timeline: #D1D5DB;
   --color-dot: #3B82F6;
-  --color-title: #1F2937;
-  --color-detail: #6B7280;
+  --color-title: #000000;
+  --color-detail: #1F2937;
   --color-card-bg: #F3F4F6;
   --color-action: #10B981;
   --font-main: 'Roboto', sans-serif;
@@ -114,6 +114,18 @@ body, button {
   to { opacity: 1; }
 }
 
+
+.timeline-link {
+  padding: 8px;
+  background-color: var(--color-action);
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+
 @media (max-width: 768px) {
   .timeline-container {
     width: 600px;
@@ -177,6 +189,10 @@ body, button {
   .timeline-dot {
     left: calc(10% - 8px); /* Posiciona à esquerda do conteúdo */
   }
+
+  button {
+    margin-top: 5px;
+  } 
   
 }
 
@@ -202,6 +218,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-left: 5px;
   /* transition: background-color 0.3s; */
 }
 
